@@ -38,12 +38,19 @@
                 <div class="col-lg-3 col-md-6 mb-4">
                     <h6 class="fw-bold">Newsletter</h6>
                     <p class="text-muted small">Subscribe to get updates on new features and movie recommendations.</p>
-                    <div class="input-group">
-                        <input type="email" class="form-control" placeholder="Your email">
-                        <button class="btn btn-primary" type="button">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
+                    <form method="POST" action="">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your email" name="newsletter_email" required>
+                            <button class="btn btn-primary" type="submit" name="newsletter_submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <?php if (isset($_POST['newsletter_submit'])): ?>
+                            <small class="text-success mt-2 d-block">
+                                <i class="fas fa-check me-1"></i>Thank you for subscribing!
+                            </small>
+                        <?php endif; ?>
+                    </form>
                 </div>
             </div>
             
@@ -63,9 +70,7 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS for basic functionality only (dropdowns, mobile menu) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="assets/js/main.js"></script>
 </body>
 </html>

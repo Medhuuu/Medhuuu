@@ -89,13 +89,8 @@ include '../includes/header.php';
                             <label for="password" class="form-label">
                                 <i class="fas fa-lock me-2"></i>Password
                             </label>
-                            <div class="password-input-container">
-                                <input type="password" class="form-control form-control-lg" id="password" name="password" 
-                                       placeholder="Enter your password" required>
-                                <button type="button" class="password-toggle" onclick="togglePassword()">
-                                    <i class="fas fa-eye" id="toggleIcon"></i>
-                                </button>
-                            </div>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" 
+                                   placeholder="Enter your password" required>
                         </div>
                         
                         <div class="form-group mb-4">
@@ -146,6 +141,12 @@ include '../includes/header.php';
                                     <strong>Password:</strong> password
                                 </small>
                             </div>
+                        </div>
+                        <div class="mt-3">
+                            <small class="text-info">
+                                <i class="fas fa-lightbulb me-1"></i>
+                                Copy and paste the credentials above to test the login
+                            </small>
                         </div>
                     </div>
                 </div>
@@ -233,25 +234,7 @@ include '../includes/header.php';
     color: var(--text-muted);
 }
 
-.password-input-container {
-    position: relative;
-}
 
-.password-toggle {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.password-toggle:hover {
-    color: var(--primary-color);
-}
 
 .form-check-input {
     background-color: var(--dark-bg);
@@ -373,41 +356,6 @@ include '../includes/header.php';
 }
 </style>
 
-<script>
-function togglePassword() {
-    const passwordInput = document.getElementById('password');
-    const toggleIcon = document.getElementById('toggleIcon');
-    
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleIcon.classList.remove('fa-eye');
-        toggleIcon.classList.add('fa-eye-slash');
-    } else {
-        passwordInput.type = 'password';
-        toggleIcon.classList.remove('fa-eye-slash');
-        toggleIcon.classList.add('fa-eye');
-    }
-}
 
-// Auto-fill demo credentials
-document.addEventListener('DOMContentLoaded', function() {
-    const demoCredentials = document.querySelectorAll('.demo-credentials small');
-    demoCredentials.forEach(credential => {
-        credential.addEventListener('click', function() {
-            const text = this.textContent;
-            const usernameMatch = text.match(/Username: (\w+)/);
-            const emailMatch = text.match(/Email: ([\w@.]+)/);
-            
-            if (usernameMatch) {
-                document.getElementById('username').value = usernameMatch[1];
-                document.getElementById('password').value = 'password';
-            } else if (emailMatch) {
-                document.getElementById('username').value = emailMatch[1];
-                document.getElementById('password').value = 'password';
-            }
-        });
-    });
-});
-</script>
 
 <?php include '../includes/footer.php'; ?>
