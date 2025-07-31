@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'cinelog');
+define('DB_NAME', 'CineLog');
 
 class Database {
     private $host = DB_HOST;

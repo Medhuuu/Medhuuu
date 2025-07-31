@@ -1,142 +1,138 @@
--- Create database
-CREATE DATABASE IF NOT EXISTS cinelog;
-USE cinelog;
+-- 1. Create database & use it
+CREATE DATABASE IF NOT EXISTS CineLog;
+USE CineLog;
 
--- User table
-CREATE TABLE IF NOT EXISTS USER (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
+-- 2. USER Table
+CREATE TABLE User (
+    User_ID INT AUTO_INCREMENT PRIMARY KEY,
     Username VARCHAR(50) NOT NULL UNIQUE,
     Password VARCHAR(255) NOT NULL,
-    Email VARCHAR(100) NOT NULL UNIQUE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    Email VARCHAR(100) NOT NULL UNIQUE
 );
 
--- Language table
-CREATE TABLE IF NOT EXISTS Language (
+-- 3. Movies Table
+CREATE TABLE Movies (
+    Movie_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    Release_year INT,
+    Description TEXT,
+    Poster_URL VARCHAR(255),
+    Avg_Rating DECIMAL(3,2) NOT NULL DEFAULT 0.00
+);
+
+-- 4. Genre Table
+CREATE TABLE Genre (
+    Genre_ID INT AUTO_INCREMENT PRIMARY KEY,
+    G_Name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- 5. Moods Table
+CREATE TABLE Moods (
+    Mood_ID INT AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(50) NOT NULL UNIQUE
+);
+
+-- 6. Language Table
+CREATE TABLE Language (
     LanguageID INT AUTO_INCREMENT PRIMARY KEY,
-    L_Name VARCHAR(50) NOT NULL
+    L_Name VARCHAR(50) NOT NULL UNIQUE
 );
 
--- Genre table
-CREATE TABLE IF NOT EXISTS Genre (
-    GenreID INT AUTO_INCREMENT PRIMARY KEY,
-    G_Name VARCHAR(50) NOT NULL
-);
-
--- Actors table
-CREATE TABLE IF NOT EXISTS Actors (
-    ActorID INT AUTO_INCREMENT PRIMARY KEY,
+-- 7. Actors Table
+CREATE TABLE Actors (
+    Actor_ID INT AUTO_INCREMENT PRIMARY KEY,
     A_Name VARCHAR(100) NOT NULL,
     Birth_year YEAR,
     Nationality VARCHAR(50)
 );
 
--- Movies table
-CREATE TABLE IF NOT EXISTS Movies (
-    MovieID INT AUTO_INCREMENT PRIMARY KEY,
-    Title VARCHAR(200) NOT NULL,
-    Release_year YEAR,
-    Description TEXT,
-    Poster_URL VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- Movie_Language junction table
-CREATE TABLE IF NOT EXISTS Movie_Language (
-    M_LanguageID INT,
-    L_MovieID INT,
-    PRIMARY KEY (M_LanguageID, L_MovieID),
-    FOREIGN KEY (M_LanguageID) REFERENCES Language(LanguageID),
-    FOREIGN KEY (L_MovieID) REFERENCES Movies(MovieID)
-);
-
--- Movie_Genre junction table
-CREATE TABLE IF NOT EXISTS Movie_Genre (
-    G_GenreID INT,
-    G_MovieID INT,
-    PRIMARY KEY (G_GenreID, G_MovieID),
-    FOREIGN KEY (G_GenreID) REFERENCES Genre(GenreID),
-    FOREIGN KEY (G_MovieID) REFERENCES Movies(MovieID)
-);
-
--- Acts_in junction table
-CREATE TABLE IF NOT EXISTS Acts_in (
-    A_ActorID INT,
-    A_MovieID INT,
-    PRIMARY KEY (A_ActorID, A_MovieID),
-    FOREIGN KEY (A_ActorID) REFERENCES Actors(ActorID),
-    FOREIGN KEY (A_MovieID) REFERENCES Movies(MovieID)
-);
-
--- Moods table
-CREATE TABLE IF NOT EXISTS Moods (
-    MoodID INT AUTO_INCREMENT PRIMARY KEY,
-    Name VARCHAR(50) NOT NULL
-);
-
--- Movie_Moods junction table
-CREATE TABLE IF NOT EXISTS Movie_Moods (
-    M_MoodID INT,
-    M_MovieID INT,
-    PRIMARY KEY (M_MoodID, M_MovieID),
-    FOREIGN KEY (M_MoodID) REFERENCES Moods(MoodID),
-    FOREIGN KEY (M_MovieID) REFERENCES Movies(MovieID)
-);
-
--- Reviews table
-CREATE TABLE IF NOT EXISTS Reviews (
+-- 8. Reviews Table
+CREATE TABLE Reviews (
     Review_ID INT AUTO_INCREMENT PRIMARY KEY,
-    R_UserID INT,
-    R_MovieID INT,
+    R_UserID INT NOT NULL,
+    R_MovieID INT NOT NULL,
     Review_txt TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (R_UserID) REFERENCES USER(UserID),
-    FOREIGN KEY (R_MovieID) REFERENCES Movies(MovieID)
+    Review_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (R_UserID) REFERENCES User(User_ID) ON DELETE CASCADE,
+    FOREIGN KEY (R_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
 );
 
--- Rating table
-CREATE TABLE IF NOT EXISTS Rating (
+-- 9. Rating Table
+CREATE TABLE Rating (
     Rating_ID INT AUTO_INCREMENT PRIMARY KEY,
-    R_UserID INT,
-    R_MovieID INT,
+    R_UserID INT NOT NULL,
+    R_MovieID INT NOT NULL,
     Score DECIMAL(2,1) CHECK (Score >= 0 AND Score <= 10),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (R_UserID) REFERENCES USER(UserID),
-    FOREIGN KEY (R_MovieID) REFERENCES Movies(MovieID)
+    FOREIGN KEY (R_UserID) REFERENCES User(User_ID) ON DELETE CASCADE,
+    FOREIGN KEY (R_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
 );
 
--- Wishlist table
-CREATE TABLE IF NOT EXISTS Wishlist (
-    List_ID INT AUTO_INCREMENT PRIMARY KEY,
-    W_UserID INT,
-    W_MovieID INT,
-    Priority INT DEFAULT 1,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (W_UserID) REFERENCES USER(UserID),
-    FOREIGN KEY (W_MovieID) REFERENCES Movies(MovieID)
-);
-
--- User_Movies table (watched status)
-CREATE TABLE IF NOT EXISTS User_Movies (
-    M_UserID INT,
-    M_MovieID INT,
-    Watched_Status ENUM('watched', 'watching', 'to_watch') DEFAULT 'to_watch',
-    Date_watched DATE,
+-- 10. User_Movies Table
+CREATE TABLE User_Movies (
+    M_UserID INT NOT NULL,
+    M_MovieID INT NOT NULL,
+    Watched_Status VARCHAR(20),
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (M_UserID, M_MovieID),
-    FOREIGN KEY (M_UserID) REFERENCES USER(UserID),
-    FOREIGN KEY (M_MovieID) REFERENCES Movies(MovieID)
+    FOREIGN KEY (M_UserID) REFERENCES User(User_ID) ON DELETE CASCADE,
+    FOREIGN KEY (M_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
 );
 
--- To_be_watched table
-CREATE TABLE IF NOT EXISTS To_be_watched (
-    Movie_MovieID INT,
-    List_ListID INT,
-    User_UserID INT,
-    added_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (Movie_MovieID, List_ListID, User_UserID),
-    FOREIGN KEY (Movie_MovieID) REFERENCES Movies(MovieID),
-    FOREIGN KEY (List_ListID) REFERENCES Wishlist(List_ID),
-    FOREIGN KEY (User_UserID) REFERENCES USER(UserID)
+-- 11. Wishlist Table
+CREATE TABLE Wishlist (
+    List_ID INT AUTO_INCREMENT PRIMARY KEY,
+    W_UserID INT NOT NULL,
+    W_MovieID INT NOT NULL,
+    Priority VARCHAR(20),
+    FOREIGN KEY (W_UserID) REFERENCES User(User_ID) ON DELETE CASCADE,
+    FOREIGN KEY (W_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
+);
+
+-- 12. To_be_watched Table
+CREATE TABLE To_be_watched (
+    MovieID INT NOT NULL,
+    ListID INT NOT NULL,
+    UserID INT NOT NULL,
+    PRIMARY KEY (MovieID, ListID, UserID),
+    FOREIGN KEY (MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE,
+    FOREIGN KEY (ListID) REFERENCES Wishlist(List_ID) ON DELETE CASCADE,
+    FOREIGN KEY (UserID) REFERENCES User(User_ID) ON DELETE CASCADE
+);
+
+-- 13. Movie_Genre Table (M:N)
+CREATE TABLE Movie_Genre (
+    G_GenreID INT NOT NULL,
+    G_MovieID INT NOT NULL,
+    PRIMARY KEY (G_GenreID, G_MovieID),
+    FOREIGN KEY (G_GenreID) REFERENCES Genre(Genre_ID) ON DELETE CASCADE,
+    FOREIGN KEY (G_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
+);
+
+-- 14. Movie_Moods Table (M:N)
+CREATE TABLE Movie_Moods (
+    M_MoodID INT NOT NULL,
+    M_MovieID INT NOT NULL,
+    PRIMARY KEY (M_MoodID, M_MovieID),
+    FOREIGN KEY (M_MoodID) REFERENCES Moods(Mood_ID) ON DELETE CASCADE,
+    FOREIGN KEY (M_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
+);
+
+-- 15. Movie_Language Table (M:N)
+CREATE TABLE Movie_Language (
+    M_LanguageID INT NOT NULL,
+    L_MovieID INT NOT NULL,
+    PRIMARY KEY (M_LanguageID, L_MovieID),
+    FOREIGN KEY (M_LanguageID) REFERENCES Language(LanguageID) ON DELETE CASCADE,
+    FOREIGN KEY (L_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
+);
+
+-- 16. Acts_in Table (Actors in Movies)
+CREATE TABLE Acts_in (
+    A_ActorID INT NOT NULL,
+    A_MovieID INT NOT NULL,
+    PRIMARY KEY (A_ActorID, A_MovieID),
+    FOREIGN KEY (A_ActorID) REFERENCES Actors(Actor_ID) ON DELETE CASCADE,
+    FOREIGN KEY (A_MovieID) REFERENCES Movies(Movie_ID) ON DELETE CASCADE
 );
 
 -- Insert sample data
