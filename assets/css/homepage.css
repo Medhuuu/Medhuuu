@@ -1,0 +1,303 @@
+/* Homepage Styles for CineLog - Pure CSS/Bootstrap Version */
+:root {
+    --color-brown: #674A40;
+    --color-teal: #50A3A4;
+    --color-amber: #FCAF38;
+    --color-red: #F95335;
+    --font-primary: 'Playfair Display', 'Times New Roman', serif;
+    --font-secondary: 'Crimson Text', 'Times', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-secondary);
+    overflow-x: hidden;
+    background: #000;
+}
+
+.hero-container {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dramatic-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        var(--color-red) 0%, 
+        var(--color-amber) 25%, 
+        var(--color-red) 50%, 
+        var(--color-amber) 75%, 
+        var(--color-red) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.clouds-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse 800px 320px at 400px 300px, rgba(255, 255, 255, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 240px at 1200px 200px, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 700px 280px at 200px 500px, rgba(255, 255, 255, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 900px 360px at 900px 600px, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 500px 200px at 1400px 400px, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+    animation: cloudDrift 30s ease-in-out infinite;
+}
+
+@keyframes cloudDrift {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(20px); }
+}
+
+.figure-silhouette {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    width: 150px;
+    height: 300px;
+    background: linear-gradient(to bottom, 
+        transparent 0%, 
+        rgba(0, 0, 0, 0.1) 20%,
+        rgba(0, 0, 0, 0.3) 40%,
+        rgba(0, 0, 0, 0.6) 60%,
+        rgba(0, 0, 0, 0.8) 80%,
+        rgba(0, 0, 0, 0.9) 100%);
+    clip-path: polygon(
+        45% 0%, 55% 0%,
+        60% 8%, 65% 15%, 70% 20%, 72% 25%,
+        70% 30%, 65% 35%, 60% 40%,
+        58% 50%, 56% 60%,
+        54% 70%, 52% 80%,
+        50% 90%, 48% 80%,
+        46% 70%, 44% 60%,
+        42% 50%, 40% 40%,
+        35% 35%, 30% 30%,
+        28% 25%, 30% 20%,
+        35% 15%, 40% 8%
+    );
+    animation: figureFloat 8s ease-in-out infinite;
+}
+
+@keyframes figureFloat {
+    0%, 100% { transform: translate(-50%, -60%) scale(1); }
+    50% { transform: translate(-50%, -65%) scale(1.05); }
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    color: #fff;
+    animation: fadeInUp 1s ease-out;
+}
+
+.main-header {
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.site-title {
+    font-family: var(--font-primary);
+    font-size: 5rem !important;
+    font-weight: 900 !important;
+    color: #fff;
+    text-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.5),
+        0 0 40px rgba(252, 175, 56, 0.3),
+        0 0 60px rgba(249, 83, 53, 0.2);
+    letter-spacing: 3px;
+}
+
+.site-subtitle {
+    font-family: var(--font-secondary);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.tagline-section {
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.main-tagline {
+    font-family: var(--font-primary);
+    font-weight: 700 !important;
+    color: #fff;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.action-buttons {
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.btn {
+    font-family: var(--font-secondary);
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn-signup {
+    background: linear-gradient(135deg, var(--color-teal), var(--color-brown));
+    color: #fff;
+    border: 2px solid transparent;
+}
+
+.btn-signup:hover {
+    background: linear-gradient(135deg, #5bb5b6, #7a5449);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(80, 163, 164, 0.4);
+    color: #fff;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, var(--color-amber), var(--color-red));
+    color: #fff;
+    border: 2px solid transparent;
+}
+
+.btn-login:hover {
+    background: linear-gradient(135deg, #fdbb4a, #fa6347);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(252, 175, 56, 0.4);
+    color: #fff;
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.features-preview {
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.preview-text {
+    font-family: var(--font-secondary);
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    letter-spacing: 1px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Bootstrap Responsive Overrides */
+@media (max-width: 768px) {
+    .site-title {
+        font-size: 3.5rem !important;
+        letter-spacing: 2px;
+    }
+    
+    .main-tagline {
+        font-size: 1.5rem !important;
+    }
+    
+    .btn {
+        font-size: 1rem;
+    }
+    
+    .figure-silhouette {
+        width: 100px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .site-title {
+        font-size: 2.5rem !important;
+        letter-spacing: 1px;
+    }
+    
+    .site-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .main-tagline {
+        font-size: 1.25rem !important;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.7rem 2rem !important;
+    }
+    
+    .figure-silhouette {
+        width: 80px;
+        height: 160px;
+    }
+}
+
+/* Additional Pure CSS Hover Effects */
+.btn-signup:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+.btn-login:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-3px) scale(1); }
+    50% { transform: translateY(-3px) scale(1.05); }
+    100% { transform: translateY(-3px) scale(1); }
+}
+
+/* Focus states for accessibility */
+.btn:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
