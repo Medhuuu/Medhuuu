@@ -1,0 +1,233 @@
+/* CineLog Custom Styles */
+
+/* Import Palatino font and fallbacks */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* Color Variables */
+:root {
+    --primary-brown: #674A40;
+    --secondary-teal: #50A3A4;
+    --accent-yellow: #FCAF38;
+    --accent-red: #F95335;
+    --text-light: #ffffff;
+    --text-dark: #2c2c2c;
+    --overlay-dark: rgba(0, 0, 0, 0.7);
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Palatino', 'Playfair Display', 'Book Antiqua', 'Times New Roman', serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+/* Hero Container */
+.hero-container {
+    min-height: 100vh;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080"><defs><linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:%23FCAF38;stop-opacity:1" /><stop offset="50%" style="stop-color:%23F95335;stop-opacity:1" /><stop offset="100%" style="stop-color:%23674A40;stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(%23skyGrad)"/><g transform="translate(960,540)"><circle cx="-200" cy="-100" r="80" fill="%23ffffff" opacity="0.8"/><circle cx="150" cy="-150" r="60" fill="%23ffffff" opacity="0.6"/><circle cx="300" cy="-80" r="100" fill="%23ffffff" opacity="0.7"/><circle cx="-350" cy="-50" r="120" fill="%23ffffff" opacity="0.5"/><path d="M-800,-200 Q-600,-150 -400,-200 T0,-200 Q200,-150 400,-200 T800,-200" stroke="%23ffffff" stroke-width="3" fill="none" opacity="0.4"/></g><g transform="translate(960,300)"><ellipse cx="0" cy="0" rx="200" ry="100" fill="%23000000" opacity="0.8"/><rect x="-20" y="-150" width="40" height="150" fill="%23000000"/><circle cx="0" cy="-160" r="25" fill="%23000000"/><rect x="-15" y="-180" width="30" height="15" fill="%23000000"/></g></svg>');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* If you want to use the actual image instead, replace the background-image with this: */
+/* background-image: url('../images/hero-bg.jpg'); */
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(103, 74, 64, 0.8) 0%,
+        rgba(80, 163, 164, 0.6) 50%,
+        rgba(252, 175, 56, 0.4) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Brand Section */
+.brand-section {
+    margin-bottom: 3rem;
+}
+
+.brand-title {
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--text-light);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.brand-subtitle {
+    font-size: 1.5rem;
+    color: var(--accent-yellow);
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+
+/* Hero Content */
+.hero-content {
+    z-index: 2;
+    position: relative;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+/* Custom Buttons */
+.btn-custom-primary {
+    background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+    border: none;
+    color: var(--text-light);
+    font-weight: 600;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(249, 83, 53, 0.3);
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-custom-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(249, 83, 53, 0.4);
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--accent-yellow), var(--accent-red));
+}
+
+.btn-custom-secondary {
+    background: linear-gradient(135deg, var(--secondary-teal), var(--primary-brown));
+    border: none;
+    color: var(--text-light);
+    font-weight: 600;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(80, 163, 164, 0.3);
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-custom-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(80, 163, 164, 0.4);
+    color: var(--text-light);
+    background: linear-gradient(135deg, var(--primary-brown), var(--secondary-teal));
+}
+
+/* Hero Buttons Container */
+.hero-buttons {
+    margin: 3rem 0;
+}
+
+.hero-footer {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    font-style: italic;
+}
+
+/* Button Hover Animations */
+.btn-custom-primary:active,
+.btn-custom-secondary:active {
+    transform: translateY(-1px);
+    transition: transform 0.1s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .brand-title {
+        font-size: 3rem;
+    }
+    
+    .brand-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .btn-custom-primary,
+    .btn-custom-secondary {
+        padding: 12px 30px;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+        width: 100%;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 576px) {
+    .brand-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-container {
+        background-attachment: scroll;
+    }
+}
+
+/* Additional Animation Classes */
+.fade-in-up {
+    animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utility Classes */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-brown), var(--secondary-teal));
+}
+
+.bg-gradient-accent {
+    background: linear-gradient(135deg, var(--accent-red), var(--accent-yellow));
+}
