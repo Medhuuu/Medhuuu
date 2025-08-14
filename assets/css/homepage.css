@@ -1,4 +1,13 @@
-/* Homepage Styles for CineLog */
+/* Homepage Styles for CineLog - Pure CSS/Bootstrap Version */
+:root {
+    --color-brown: #674A40;
+    --color-teal: #50A3A4;
+    --color-amber: #FCAF38;
+    --color-red: #F95335;
+    --font-primary: 'Playfair Display', 'Times New Roman', serif;
+    --font-secondary: 'Crimson Text', 'Times', serif;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,7 +15,7 @@
 }
 
 body {
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    font-family: var(--font-secondary);
     overflow-x: hidden;
     background: #000;
 }
@@ -25,7 +34,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #F95335 0%, #FCAF38 25%, #F95335 50%, #FCAF38 75%, #F95335 100%);
+    background: linear-gradient(45deg, 
+        var(--color-red) 0%, 
+        var(--color-amber) 25%, 
+        var(--color-red) 50%, 
+        var(--color-amber) 75%, 
+        var(--color-red) 100%);
     background-size: 400% 400%;
     animation: gradientShift 15s ease infinite;
 }
@@ -94,31 +108,28 @@ body {
 .content-wrapper {
     position: relative;
     z-index: 10;
-    text-align: center;
     color: #fff;
-    max-width: 800px;
-    padding: 2rem;
-}
-
-.main-header {
-    margin-bottom: 3rem;
     animation: fadeInUp 1s ease-out;
 }
 
+.main-header {
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
 .site-title {
-    font-size: 5rem;
-    font-weight: 700;
+    font-family: var(--font-primary);
+    font-size: 5rem !important;
+    font-weight: 900 !important;
     color: #fff;
     text-shadow: 
         0 0 20px rgba(255, 255, 255, 0.5),
         0 0 40px rgba(252, 175, 56, 0.3),
         0 0 60px rgba(249, 83, 53, 0.2);
-    margin-bottom: 0.5rem;
     letter-spacing: 3px;
 }
 
 .site-subtitle {
-    font-size: 1.5rem;
+    font-family: var(--font-secondary);
     color: rgba(255, 255, 255, 0.9);
     font-weight: 400;
     letter-spacing: 2px;
@@ -126,42 +137,34 @@ body {
 }
 
 .tagline-section {
-    margin: 4rem 0;
-    animation: fadeInUp 1s ease-out 0.3s both;
+    animation: fadeInUp 1s ease-out 0.4s both;
 }
 
 .main-tagline {
-    font-size: 2.5rem;
-    font-weight: 700;
+    font-family: var(--font-primary);
+    font-weight: 700 !important;
     color: #fff;
-    margin: 1rem 0;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
     letter-spacing: 1px;
     line-height: 1.2;
 }
 
 .action-buttons {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-    margin: 4rem 0;
     animation: fadeInUp 1s ease-out 0.6s both;
 }
 
 .btn {
-    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-    font-size: 1.3rem;
+    font-family: var(--font-secondary);
     font-weight: 600;
-    padding: 1rem 3rem;
     border: none;
     border-radius: 50px;
-    cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
     text-transform: uppercase;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     position: relative;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .btn::before {
@@ -180,7 +183,7 @@ body {
 }
 
 .btn-signup {
-    background: linear-gradient(135deg, #50A3A4, #674A40);
+    background: linear-gradient(135deg, var(--color-teal), var(--color-brown));
     color: #fff;
     border: 2px solid transparent;
 }
@@ -189,10 +192,11 @@ body {
     background: linear-gradient(135deg, #5bb5b6, #7a5449);
     transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(80, 163, 164, 0.4);
+    color: #fff;
 }
 
 .btn-login {
-    background: linear-gradient(135deg, #FCAF38, #F95335);
+    background: linear-gradient(135deg, var(--color-amber), var(--color-red));
     color: #fff;
     border: 2px solid transparent;
 }
@@ -201,6 +205,7 @@ body {
     background: linear-gradient(135deg, #fdbb4a, #fa6347);
     transform: translateY(-3px);
     box-shadow: 0 12px 35px rgba(252, 175, 56, 0.4);
+    color: #fff;
 }
 
 .btn:active {
@@ -208,11 +213,11 @@ body {
 }
 
 .features-preview {
-    animation: fadeInUp 1s ease-out 0.9s both;
+    animation: fadeInUp 1s ease-out 0.8s both;
 }
 
 .preview-text {
-    font-size: 1.2rem;
+    font-family: var(--font-secondary);
     color: rgba(255, 255, 255, 0.8);
     font-style: italic;
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
@@ -230,48 +235,69 @@ body {
     }
 }
 
-/* Responsive Design */
+/* Bootstrap Responsive Overrides */
 @media (max-width: 768px) {
     .site-title {
-        font-size: 3.5rem;
-    }
-    
-    .main-tagline {
-        font-size: 1.8rem;
-    }
-    
-    .action-buttons {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    .btn {
-        font-size: 1.1rem;
-        padding: 0.8rem 2.5rem;
-    }
-    
-    .content-wrapper {
-        padding: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .site-title {
-        font-size: 2.5rem;
+        font-size: 3.5rem !important;
         letter-spacing: 2px;
     }
     
-    .site-subtitle {
-        font-size: 1.2rem;
-    }
-    
     .main-tagline {
-        font-size: 1.5rem;
+        font-size: 1.5rem !important;
     }
     
     .btn {
         font-size: 1rem;
-        padding: 0.7rem 2rem;
     }
+    
+    .figure-silhouette {
+        width: 100px;
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .site-title {
+        font-size: 2.5rem !important;
+        letter-spacing: 1px;
+    }
+    
+    .site-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .main-tagline {
+        font-size: 1.25rem !important;
+    }
+    
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.7rem 2rem !important;
+    }
+    
+    .figure-silhouette {
+        width: 80px;
+        height: 160px;
+    }
+}
+
+/* Additional Pure CSS Hover Effects */
+.btn-signup:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+.btn-login:hover {
+    animation: pulse 0.6s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(-3px) scale(1); }
+    50% { transform: translateY(-3px) scale(1.05); }
+    100% { transform: translateY(-3px) scale(1); }
+}
+
+/* Focus states for accessibility */
+.btn:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
 }
